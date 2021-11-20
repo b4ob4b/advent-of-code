@@ -1,34 +1,31 @@
 package com.baobab.y2015
 
 import utils.Day
-import utils.Utils
-import java.util.regex.Pattern
+import utils.IO
 
-class Day12(val data: String): Day() {
-    override fun part2(): Any? {
-//        TODO("Not yet implemented")
-        return ""
-    }
+class Day12(val data: String) : Day() {
 
-    override fun part1(): Any? {
+    override fun part1(): Int {
         return data.split("[,:;{}\\]\\[]".toRegex())
             .map {
-            try {
-                it.toInt()
-            } catch (e: Exception) {
-                null
+                try {
+                    it.toInt()
+                } catch (e: Exception) {
+                    null
+                }
             }
-        }
             .filterNotNull()
             .sum()
     }
+
+    override fun part2(): Int {
+        TODO()
+    }
+
+
 }
 
 fun main() {
-    val input = Utils.readFile2(2015,12)
+    val input = IO.readFile(2015, 12)
     Day12(input).solve()
-//    Day12("[1,2,3]").solve()
-//    Day12("{\"a\":2,\"b\":4}").solve()
-//    Day12("{\"a\":{\"b\":4},\"c\":-12;}").solve()
-//    println(input)
 }

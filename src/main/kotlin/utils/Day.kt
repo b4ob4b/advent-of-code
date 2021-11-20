@@ -7,7 +7,7 @@ abstract class Day {
         println("Part 2: ${part2()}")
     }
 
-    abstract fun part2(): Any?
-
     abstract fun part1(): Any?
+
+    abstract fun part2(): Any?
 }
