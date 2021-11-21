@@ -1,7 +1,7 @@
 package com.baobab.y2015
 
 import utils.Day
-import utils.IO.Companion.readFile
+import utils.IO.readFile
 
 class Day16(input: String) : Day() {
 

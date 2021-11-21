@@ -1,7 +1,7 @@
 package com.baobab.y2015
 
 import utils.Day
-import utils.IO.Companion.readFile
+import utils.IO.readFile
 
 class Day17(input: Pair<List<Int>, Int>) : Day() {
     private val data = input.first
