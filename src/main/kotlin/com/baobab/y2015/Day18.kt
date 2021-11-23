@@ -5,6 +5,9 @@ import utils.IO
 import utils.IO.readFile
 
 class Day18(val input: Input) : Day() {
+
+    data class Input(val data: String, val sampleSize: Int)
+
     val initialField = Field.fromString(input.data)
     var field = initialField
     val sampleSize = input.sampleSize
@@ -133,10 +136,9 @@ data class Field(
     }
 }
 
-data class Input(val data: String, val sampleSize: Int)
 
 fun main() {
-    val sample = Input(readFile(2015, 18, IO.TYPE.SAMPLE), 5)
-    val input = Input(readFile(2015, 18, IO.TYPE.INPUT), 100)
+    val sample = Day18.Input(readFile(2015, 18, IO.TYPE.SAMPLE), 5)
+    val input = Day18.Input(readFile(2015, 18, IO.TYPE.INPUT), 100)
     Day18(input).solve()
 }
