@@ -22,8 +22,8 @@ object IO {
     fun createInputFiles(year: Int, day: Int) {
         val dir = File("$resourcesPath/$year/$day")
         if (dir.mkdir()) {
-            File("$dir/sample.txt").createNewFile()
-            File("$dir/input.txt").createNewFile()
+            if (File("$dir/sample.txt").createNewFile()) println("sample created")
+            if (File("$dir/input.txt").createNewFile()) println("input created")
         }
     }
 
@@ -32,5 +32,5 @@ object IO {
 }
 
 fun main() {
-    createInputFiles(2015, 19)
+    createInputFiles(2016, 3)
 }
