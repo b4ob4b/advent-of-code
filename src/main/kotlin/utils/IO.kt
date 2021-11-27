@@ -1,6 +1,6 @@
 package utils
 
-import utils.IO.createInputFiles
+import utils.IO.createNewDay
 import java.io.File
 import kotlin.io.path.Path
 import kotlin.io.path.absolute
@@ -8,7 +8,8 @@ import kotlin.io.path.absolute
 object IO {
 
     private val basePath = Path("").absolute()
-    private val resourcesPath = "$basePath/src/main/resources/"
+    private val resourcesPath = "$basePath/src/main/resources"
+    private val sourceCodePath = "$basePath/src/main/kotlin/com/baobab"
 
     enum class TYPE(val path: String) {
         SAMPLE("sample"), INPUT("input")
@@ -19,11 +20,50 @@ object IO {
         return File(filePath).readText()
     }
 
-    fun createInputFiles(year: Int, day: Int) {
+    fun createNewDay(year: Int, day: Int) {
+        createInputFiles(year, day)
+        createKtFile(year, day)
+    }
+
+    private fun createInputFiles(year: Int, day: Int) {
         val dir = File("$resourcesPath/$year/$day")
         if (dir.mkdir()) {
             if (File("$dir/sample.txt").createNewFile()) println("sample created")
             if (File("$dir/input.txt").createNewFile()) println("input created")
+        }
+    }
+
+    private fun createKtFile(year: Int, day: Int) {
+        val sday = if (day <= 9) "0$day" else "$day"
+        val text = """
+            package com.baobab.y$year
+            
+            import utils.Day
+            import utils.IO
+            
+            class Day$sday(val input: String): Day() {
+                override fun part1(): Any? {
+                    TODO("Not yet implemented")
+                }
+
+                override fun part2(): Any? {
+                    TODO("Not yet implemented")
+                }
+            }
+            
+            fun main() {
+                val sample = IO.readFile($year, $day, IO.TYPE.SAMPLE)
+                val input = IO.readFile($year, $day, IO.TYPE.INPUT)
+                
+                Day$sday(sample).solve()
+            }
+            
+        """.trimIndent()
+
+        val dir = File("$sourceCodePath/y$year")
+        if (dir.isDirectory) {
+            File("$dir/Day$sday.kt").writeText(text)
+            println("Day$sday.kt created")
         }
     }
 
@@ -32,5 +72,5 @@ object IO {
 }
 
 fun main() {
-    createInputFiles(2016, 3)
+    createNewDay(2016, 4)
 }
