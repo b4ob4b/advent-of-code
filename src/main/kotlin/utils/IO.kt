@@ -20,9 +20,9 @@ object IO {
         return File(filePath).readText()
     }
 
-    fun createNewDay(year: Int, day: Int) {
-        createInputFiles(year, day)
-        createKtFile(year, day)
+    fun createNewDay(year: Int, day: Int, createInputFiles: Boolean = true) {
+        if (createInputFiles) createInputFiles(year, day)
+        createKtFile(year, day, createInputFiles)
     }
 
     private fun createInputFiles(year: Int, day: Int) {
@@ -33,8 +33,19 @@ object IO {
         }
     }
 
-    private fun createKtFile(year: Int, day: Int) {
+    private fun createKtFile(year: Int, day: Int, createInputFiles: Boolean) {
         val sday = if (day <= 9) "0$day" else "$day"
+        val sample: String
+        val input: String
+
+        if (createInputFiles) {
+            sample = "IO.readFile($year, $day, IO.TYPE.SAMPLE)"
+            input = "IO.readFile($year, $day, IO.TYPE.INPUT)"
+        } else {
+            sample = "\"\""
+            input = "\"\""
+        }
+
         val text = """
             package com.baobab.y$year
             
@@ -52,8 +63,8 @@ object IO {
             }
             
             fun main() {
-                val sample = IO.readFile($year, $day, IO.TYPE.SAMPLE)
-                val input = IO.readFile($year, $day, IO.TYPE.INPUT)
+                val sample = $sample
+                val input = $input
                 
                 Day$sday(sample).solve()
             }
@@ -72,5 +83,5 @@ object IO {
 }
 
 fun main() {
-    createNewDay(2016, 4)
+    createNewDay(2016, 5, false)
 }
