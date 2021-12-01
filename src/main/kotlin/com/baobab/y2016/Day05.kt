@@ -5,7 +5,7 @@ import java.math.BigInteger
 import java.security.MessageDigest
 
 class Day05(input: String) : Day() {
-    
+
     val decrypter = Decrypter(input)
 
     override fun part1(): String {
@@ -18,7 +18,6 @@ class Day05(input: String) : Day() {
     }
 
     override fun part2(): String {
-
         decrypter.reset()
         val password = "________".toCharArray()
 
@@ -39,10 +38,8 @@ class Day05(input: String) : Day() {
 
     class Decrypter(val input: String) {
 
-        private var password = "________".toCharArray()
         private var counter = 0
         private var hash = ""
-
 
         fun next(): Pair<Char, Char> {
             var beginning = ""

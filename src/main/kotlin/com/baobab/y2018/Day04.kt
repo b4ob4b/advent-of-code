@@ -8,11 +8,7 @@ import java.time.LocalTime
 
 class Day04(input: String) : Day() {
 
-    private val shiftsRecords = input.split("\n")
-        .map { it.toShiftRecord() }
-        .sortedBy { it.localDateTime }
-
-    private val sleepyTime = shiftsRecords.scan()
+    private val sleepyTime = scan(input)
         .filter { it.guard.status == Status.ASLEEP }
 
     override fun part1(): Int {
@@ -76,10 +72,13 @@ class Day04(input: String) : Day() {
     }
 
     private fun List<ShiftRecord>.getCurrent(localDateTime: LocalDateTime): ShiftRecord {
-        return this.filter { it.localDateTime <= localDateTime }.last()
+        return this.last { it.localDateTime <= localDateTime }
     }
 
-    private fun List<ShiftRecord>.scan(): List<ShiftTimeStamp> {
+    private fun scan(input: String): List<ShiftTimeStamp> {
+        val shiftsRecords = input.split("\n")
+            .map { it.toShiftRecord() }
+            .sortedBy { it.localDateTime }
         var currentTime = shiftsRecords.first().localDateTime
         var guardId = -1
         val shiftTimeStamps = mutableSetOf<ShiftTimeStamp>()

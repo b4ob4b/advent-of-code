@@ -83,5 +83,5 @@ object IO {
 }
 
 fun main() {
-    createNewDay(2018, 4, true)
+    createNewDay(2015, 11, false)
 }

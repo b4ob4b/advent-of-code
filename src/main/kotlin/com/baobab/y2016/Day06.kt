@@ -8,7 +8,7 @@ class Day06(input: String) : Day() {
     private val words = input.split("\n")
 
     private fun findLetters(foo: List<Pair<String, Int>>.(Int) -> List<Pair<String, Int>>): String {
-        val positions = generateSequence { "" }.take(words.first().length).toMutableList()
+        val positions = MutableList(words.first().length) { "" }
         for (i in 0 until words.first().length) {
             positions[i] += words.map { it[i] }.joinToString("")
         }
