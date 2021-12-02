@@ -10,24 +10,19 @@ class Day01(val input: String) : Day() {
 
     override fun part1(): Int {
         return measurements
-            .asSequence()
             .countIncrements()
     }
 
     override fun part2(): Int {
-        return generateSequence(0) { it + 1 }
-            .take(measurements.size)
-            .windowed(3)
-            .map { chunk -> chunk.map { measurements[it] } }
-            .map { it.sum() }
+        return measurements
+            .windowed(3) { it.sum() }
             .countIncrements()
     }
 
-    private fun Sequence<Int>.countIncrements(): Int {
-        return this.windowed(2)
-            .map { it.last() - it.first() }
+    private fun Collection<Int>.countIncrements() =
+        asSequence()
+            .zipWithNext { a, b -> b - a }
             .count { it > 0 }
-    }
 }
 
 fun main() {
