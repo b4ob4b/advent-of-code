@@ -21,6 +21,15 @@ class Day02(input: String) : Day() {
         }
     }
 
+    private fun Submarine.product(): Int {
+        return horizontal * depth
+    }
+
+    override fun part1() = instructions.fold(Submarine()) { submarine, instruction ->
+        submarine.move(instruction)
+    }.product()
+
+
     private fun Submarine.moveWithAim(instruction: Instruction): Submarine {
         return when (instruction.direction) {
             Direction.FORWARD -> Submarine(horizontal + instruction.value, depth + aim * instruction.value, aim)
@@ -28,15 +37,6 @@ class Day02(input: String) : Day() {
             Direction.UP -> Submarine(horizontal, depth, aim - instruction.value)
         }
     }
-
-    private fun Submarine.product(): Int {
-        return horizontal * depth
-    }
-
-
-    override fun part1() = instructions.fold(Submarine()) { submarine, instruction ->
-        submarine.move(instruction)
-    }.product()
 
     override fun part2() = instructions.fold(Submarine()) { submarine, instruction ->
         submarine.moveWithAim(instruction)

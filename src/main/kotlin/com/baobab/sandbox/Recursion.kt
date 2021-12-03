@@ -7,21 +7,22 @@ fun fib(n: Int, memo: HashMap<Int, Int> = hashMapOf()): Int {
     return memo.get(n)!!
 }
 
-fun <T> List<T>.allIndicesOf(element: T, memo: Int = 0): List<Int> {
-    val index = this.indexOf(element)
-    if (index == -1) return listOf()
-    return mutableListOf(index + memo).also {
-        it.addAll(this.drop(memo + index + 1).allIndicesOf(element, memo + index + 1))
+fun <T> List<T>.allIndicesOf(element: T): List<Int> {
+    return this.foldIndexed(mutableListOf()) { index, acc, i ->
+        if (i == element) {
+            acc.add(index)
+        }
+        acc
     }
 }
 
-fun <T> List<T>.permutate(): List<List<T>> {
-    if (this.size <= 1) return listOf(this)
+fun <T> List<T>.permutate(minSize: Int = 1): List<List<T>> {
+    if (this.size <= minSize) return listOf(this)
     val perms: MutableList<List<T>> = mutableListOf()
     for (firstElement in this) {
         val rest = this.toMutableList()
         rest.remove(firstElement)
-        for (r in rest.permutate()) {
+        for (r in rest.permutate(minSize)) {
             val perm = mutableListOf(firstElement)
             perm.addAll(r)
             perms.add(perm)

@@ -77,11 +77,8 @@ object IO {
             println("Day$sday.kt created")
         }
     }
-
-
-    fun <T> T.print() = println(this)
 }
 
 fun main() {
-    createNewDay(2015, 11, false)
+    createNewDay(2021, 3, true)
 }
