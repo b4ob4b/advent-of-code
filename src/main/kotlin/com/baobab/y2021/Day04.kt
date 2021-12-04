@@ -8,73 +8,68 @@ import utils.IO
 
 class Day04(input: String) : Day() {
 
-    private val numbers = input.splitLines().first().split(",").map { it.toInt() }
+    private val numbers = Bingo.getNumbersFromInput(input)
+    private val boards = Bingo.createBoardsFromInput(input)
+    private val bingo = Bingo(boards, numbers)
 
-    private val fields = input.split("\n\n").drop(1)
-        .map {
-            it.splitLines().map {
-                it.split(" ").filter { it.isNotEmpty() }
-            }
-        }
-
-    private val matrices = fields.map { it.toMatrix().convertElementsToInt() }
-
-    private fun Matrix<String>.convertElementsToInt() = this.matrix.map { it.map { it.toInt() } }.toMatrix()
+    init {
+        bingo.play()
+    }
 
     override fun part1(): Int {
-        var numbersTaken = 1
-        val winner: Int
-        outer@ while (true) {
-            val chosen = numbers.take(numbersTaken)
-            for ((i, m) in matrices.withIndex()) {
-                for (r in m.matrix.indices) {
-                    if (chosen.containsAll(m.matrix[r])) {
-                        winner = i
-                        break@outer
-                    }
-                }
-                for (c in m.matrix.first().indices) {
-                    if (chosen.containsAll(m.rotateClockWise().matrix[c])) {
-                        winner = i
-                        break@outer
-                    }
-                }
-            }
-            numbersTaken++
-        }
-        val score = matrices.calculateScore(winner, numbersTaken)
-        val lastNumber = numbers.take(numbersTaken).last()
-        return lastNumber * score
+        val firstWinner = bingo.boardScores.toList().first()
+        val winningBoard = firstWinner.first
+        val winningNumber = firstWinner.second
+        val sumOfUnmarkedNumbers = bingo.sumOfUnmarkedNumbers(winningBoard, winningNumber)
+        return winningNumber * sumOfUnmarkedNumbers
     }
 
     override fun part2(): Int {
-        var numbersTaken = 1
-        val players = MutableList(matrices.size) { it + 1 }.map { it - 1 }.toMutableList()
-        while (players.size > 1) {
-            val chosen = numbers.take(numbersTaken)
-            for ((i, m) in matrices.withIndex()) {
-                for (r in m.matrix.indices) {
-                    if (chosen.containsAll(m.matrix[r])) {
-                        players.remove(i)
-                    }
-                }
-                for (c in m.matrix.first().indices) {
-                    if (chosen.containsAll(m.rotateClockWise().matrix[c])) {
-                        players.remove(i)
-                    }
-                }
-            }
-            numbersTaken++
-        }
-        val score = matrices.calculateScore(players.first(), numbersTaken)
-        val lastNumber = numbers.take(numbersTaken).last()
-        return lastNumber * score
+        val lastWinner = bingo.boardScores.toList().last()
+        val lastWinningBoard = lastWinner.first
+        val lastWinningNumber = lastWinner.second
+        val sumOfUnmarkedNumbers = bingo.sumOfUnmarkedNumbers(lastWinningBoard, lastWinningNumber)
+        return lastWinningNumber * sumOfUnmarkedNumbers
     }
 
-    private fun List<Matrix<Int>>.calculateScore(winnerNumber: Int, gameRound: Int): Int {
-        return this[winnerNumber].matrix.flatten().filter {
-            !numbers.take(gameRound).contains(it)
-        }.sum()
+    private class Bingo(val boards: List<Matrix<Int>>, val numbers: List<Int>) {
+        var boardScores = mutableMapOf<Int, Int>()
+
+        fun play() {
+            var round = 1
+            while (boardScores.size < boards.size) {
+                val numbersTaken = numbers.take(round)
+                for ((boardNumber, board) in boards.withIndex()) {
+                    for (row in board.getRows()) {
+                        if (!boardScores.containsKey(boardNumber) && numbersTaken.containsAll(row)) {
+                            boardScores.put(boardNumber, numbersTaken.last())
+                        }
+                    }
+                    for (column in board.getCols()) {
+                        if (!boardScores.containsKey(boardNumber) && numbersTaken.containsAll(column)) {
+                            boardScores.put(boardNumber, numbersTaken.last())
+                        }
+                    }
+                }
+                round++
+            }
+        }
+
+        fun sumOfUnmarkedNumbers(boardNumber: Int, winningNumber: Int): Int {
+            val numbersTaken = numbers.take(numbers.indexOf(winningNumber) + 1)
+            return boards[boardNumber].matrix.flatten().filter { !numbersTaken.contains(it) }.sum()
+        }
+
+        companion object {
+            fun createBoardsFromInput(input: String) = input.split("\n\n").drop(1)
+                .map {
+                    it.splitLines().map {
+                        it.split(" ").filter { it.isNotEmpty() }
+                    }.toMatrix().convertElementsToInt()
+                }
+
+            fun getNumbersFromInput(input: String) = input.splitLines().first().split(",").map { it.toInt() }
+        }
     }
 }
 

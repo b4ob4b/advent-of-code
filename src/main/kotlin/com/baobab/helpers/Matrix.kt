@@ -9,6 +9,12 @@ data class Matrix<T>(val matrix: List<List<T>>) {
     val nRows = matrix.size
     val nCols = matrix.first().size
 
+    fun getRows() = matrix
+    fun getCols() = this.rotateClockWise().matrix
+
+    fun getRow(row: Int) = getRows()[row]
+    fun getCols(col: Int) = getCols()[col]
+
     fun flipHorizontal(): Matrix<T> {
         return matrix.reversed().toMatrix()
     }
@@ -31,6 +37,8 @@ data class Matrix<T>(val matrix: List<List<T>>) {
     fun rotateClockWise() = this.transpose().flipVertical()
 
     fun rotateCounterClockWise() = this.transpose().flipHorizontal()
+
+    fun convertElementsToInt() = this.matrix.map { it.map { it.toString().toInt() } }.toMatrix()
 
     fun prettyPrint() {
         matrix.forEach { row ->
