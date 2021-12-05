@@ -1,7 +1,7 @@
 package com.baobab.y2015
 
+import com.baobab.helpers.print
 import utils.Day
-import utils.IO.print
 import kotlin.math.sqrt
 import kotlin.system.measureTimeMillis
 

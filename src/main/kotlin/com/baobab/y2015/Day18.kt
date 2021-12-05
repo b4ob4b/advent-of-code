@@ -12,14 +12,14 @@ class Day18(val input: Input) : Day() {
     var field = initialField
     val sampleSize = input.sampleSize
 
-    override fun part1(): Any? {
+    override fun part1(): Int {
         repeat(sampleSize) {
             nextGeneration()
         }
         return field.countLights()
     }
 
-    override fun part2(): Any? {
+    override fun part2(): Int {
         field = Field.withDefect(initialField.matrix)
         repeat(sampleSize) {
             nextGeneration(true)
@@ -140,5 +140,6 @@ data class Field(
 fun main() {
     val sample = Day18.Input(readFile(2015, 18, IO.TYPE.SAMPLE), 5)
     val input = Day18.Input(readFile(2015, 18, IO.TYPE.INPUT), 100)
+
     Day18(input).solve()
 }
