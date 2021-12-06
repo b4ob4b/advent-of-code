@@ -27,26 +27,13 @@ class Day06(val input: String) : Day() {
             if (cycle == (80 + 1)) {
                 yield(generation)
             }
-            var counter = 0L
-            val nextGeneration = mutableMapOf<Long, Long>()
+            val nextGeneration = (-1L..8L).associateWith { 0L }.toMutableMap()
             generation.entries.forEach { (lifeTime, count) ->
-                val newLifeTime: Long
-                if (lifeTime - 1 < 0) {
-                    counter += count
-                    newLifeTime = 6
-                } else {
-                    newLifeTime = lifeTime - 1
-                }
-                if (nextGeneration.containsKey(newLifeTime)) {
-                    nextGeneration[newLifeTime] = nextGeneration[newLifeTime]!! + count
-                } else {
-                    nextGeneration[newLifeTime] = count
-                }
+                nextGeneration[lifeTime - 1] = nextGeneration[lifeTime - 1]!! + count
             }
-
-            if (counter > 0) {
-                nextGeneration[8] = counter
-            }
+            nextGeneration[6] = nextGeneration[6]!! + nextGeneration[-1]!!
+            nextGeneration[8] = nextGeneration[8]!! + nextGeneration[-1]!!
+            nextGeneration.remove(-1)
             nextGeneration
         }
         yield(lastGen)
