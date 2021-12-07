@@ -1,5 +1,6 @@
 package utils
 
+@Deprecated("Day is deprecated", ReplaceWith("AocDay()"))
 abstract class Day {
 
     fun solve() {

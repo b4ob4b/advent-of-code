@@ -1,9 +1,8 @@
 package com.baobab.y2021
 
-import utils.Day
-import utils.IO
+import utils.AocDay
 
-class Day06(val input: String) : Day() {
+class Day06 : AocDay(2021, 6, "Lanternfish") {
 
     val data = input.split(",")
         .map { it.toInt() }
@@ -42,7 +41,5 @@ class Day06(val input: String) : Day() {
 }
 
 fun main() {
-    val sample = IO.readFile(2021, 6, IO.TYPE.SAMPLE)
-    val input = IO.readFile(2021, 6, IO.TYPE.INPUT)
-    Day06(input).solve()
+    Day06().solve()
 }

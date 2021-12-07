@@ -1,9 +1,8 @@
 package com.baobab.y2021
 
-import utils.Day
-import utils.IO
+import utils.AocDay
 
-class Day02(input: String) : Day() {
+class Day02 : AocDay(2021, 2, "Dive!") {
 
     private val instructions = input.split("\n")
         .map { it.split(" ") }
@@ -44,8 +43,5 @@ class Day02(input: String) : Day() {
 }
 
 fun main() {
-    val sample = IO.readFile(2021, 2, IO.TYPE.SAMPLE)
-    val input = IO.readFile(2021, 2, IO.TYPE.INPUT)
-
-    Day02(input).solve()
+    Day02().solve()
 }

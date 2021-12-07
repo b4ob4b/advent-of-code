@@ -34,51 +34,42 @@ object IO {
     }
 
     private fun createKtFile(year: Int, day: Int, createInputFiles: Boolean) {
-        val sday = if (day <= 9) "0$day" else "$day"
-        val sample: String
-        val input: String
-
-        if (createInputFiles) {
-            sample = "IO.readFile($year, $day, IO.TYPE.SAMPLE)"
-            input = "IO.readFile($year, $day, IO.TYPE.INPUT)"
-        } else {
-            sample = "\"\""
-            input = "\"\""
-        }
-
+        val formattedDay = day.toString().padStart(2, '0')
         val text = """
             package com.baobab.y$year
             
-            import utils.Day
+            import utils.AocDay
             import utils.IO
             
-            class Day$sday(val input: String): Day() {
+            class Day$formattedDay: AocDay($year,$day, inputType = IO.TYPE.SAMPLE) {
                 override fun part1(): Any? {
-                    TODO("Not yet implemented")
+                    return "not yet implement"
                 }
 
                 override fun part2(): Any? {
-                    TODO("Not yet implemented")
+                    return "not yet implement"
                 }
             }
             
             fun main() {
-                val sample = $sample
-                val input = $input
-                
-                Day$sday(sample).solve()
+                Day$formattedDay().solve()
             }
             
         """.trimIndent()
 
         val dir = File("$sourceCodePath/y$year")
         if (dir.isDirectory) {
-            File("$dir/Day$sday.kt").writeText(text)
-            println("Day$sday.kt created")
+            val file = File("$dir/Day$formattedDay.kt")
+            if (!file.exists()) {
+                file.writeText(text)
+                println("Day$formattedDay.kt created")
+            } else {
+                println("Day$formattedDay.kt already exists")
+            }
         }
     }
 }
 
 fun main() {
-    createNewDay(2021, 4, true)
+    createNewDay(2021, 8, true)
 }

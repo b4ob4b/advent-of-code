@@ -3,10 +3,9 @@ package com.baobab.y2021
 import com.baobab.helpers.Matrix
 import com.baobab.helpers.splitLines
 import com.baobab.helpers.toMatrix
-import utils.Day
-import utils.IO
+import utils.AocDay
 
-class Day04(input: String) : Day() {
+class Day04 : AocDay(2021, 4, "Giant Squid") {
 
     private val numbers = Bingo.getNumbersFromInput(input)
     private val boards = Bingo.createBoardsFromInput(input)
@@ -74,8 +73,5 @@ class Day04(input: String) : Day() {
 }
 
 fun main() {
-    val sample = IO.readFile(2021, 4, IO.TYPE.SAMPLE)
-    val input = IO.readFile(2021, 4, IO.TYPE.INPUT)
-
-    Day04(input).solve()
+    Day04().solve()
 }

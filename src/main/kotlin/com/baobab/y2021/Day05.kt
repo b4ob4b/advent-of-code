@@ -2,11 +2,10 @@ package com.baobab.y2021
 
 import com.baobab.helpers.Position
 import com.baobab.helpers.splitLines
-import utils.Day
-import utils.IO
+import utils.AocDay
 import kotlin.math.abs
 
-class Day05(input: String) : Day() {
+class Day05 : AocDay(2021, 5, "Hydrothermal Venture") {
 
     private val lines = input.splitLines().getLines()
 
@@ -71,8 +70,5 @@ class Day05(input: String) : Day() {
 
 
 fun main() {
-    val sample = IO.readFile(2021, 5, IO.TYPE.SAMPLE)
-    val input = IO.readFile(2021, 5, IO.TYPE.INPUT)
-
-    Day05(input).solve()
+    Day05().solve()
 }

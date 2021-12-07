@@ -1,11 +1,13 @@
 package com.baobab.y2021
 
-import com.baobab.helpers.*
-import utils.Day
-import utils.IO
+import com.baobab.helpers.product
+import com.baobab.helpers.splitLines
+import com.baobab.helpers.toBinary
+import com.baobab.helpers.toMatrix
+import utils.AocDay
 import utils.allIndicesOf
 
-class Day03(val input: String) : Day() {
+class Day03 : AocDay(2021, 3, "Binary Diagnostic") {
 
     private val data = input.splitLines()
     private val matrix = data.toMatrix().convertElementsToInt()
@@ -58,14 +60,9 @@ class Day03(val input: String) : Day() {
         return BitFrequency(mostFrequent, leastFrequent)
     }
 
-    private fun Matrix<String>.convertElementsToInt() = this.matrix.map { it.map { it.toInt() } }.toMatrix()
-
     private fun Int.flip() = if (this == 1) 0 else 1
 }
 
 fun main() {
-    val sample = IO.readFile(2021, 3, IO.TYPE.SAMPLE)
-    val input = IO.readFile(2021, 3, IO.TYPE.INPUT)
-
-    Day03(input).solve()
+    Day03().solve()
 }
