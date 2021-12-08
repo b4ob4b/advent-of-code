@@ -1,5 +1,7 @@
 package com.baobab.sandbox
 
+import com.baobab.helpers.print
+
 
 class Combination<T : Comparable<T>>() {
     val memo: MutableMap<String, Set<List<T>>> = mutableMapOf()
@@ -27,4 +29,8 @@ class Combination<T : Comparable<T>>() {
         memo[key] = combinations
         return combinations
     }
+}
+
+fun main() {
+    Combination<Int>().of(listOf(1, 2, 3, 4, 5), 1).print()
 }

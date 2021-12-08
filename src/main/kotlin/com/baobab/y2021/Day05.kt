@@ -68,7 +68,6 @@ class Day05 : AocDay(2021, 5, "Hydrothermal Venture") {
         .count { it.value > 1 }
 }
 
-
 fun main() {
     Day05().solve()
 }

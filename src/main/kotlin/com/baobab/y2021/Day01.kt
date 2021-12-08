@@ -1,11 +1,10 @@
 package com.baobab.y2021
 
+import com.baobab.helpers.extractInts
 import utils.AocDay
 
 class Day01 : AocDay(2021, 1, "Sonar Sweep") {
-    private val measurements = input.split("\n")
-        .filter { it.isNotEmpty() }
-        .map { it.toInt() }
+    private val measurements = input.extractInts("\n")
 
     override fun part1(): Int {
         return measurements

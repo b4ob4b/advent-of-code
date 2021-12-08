@@ -16,13 +16,13 @@ fun <T> List<T>.allIndicesOf(element: T): List<Int> {
     }
 }
 
-fun <T> List<T>.permutate(minSize: Int = 1): List<List<T>> {
+fun <T> List<T>.compositions(minSize: Int = 1): List<List<T>> {
     if (this.size <= minSize) return listOf(this)
     val perms: MutableList<List<T>> = mutableListOf()
     for (firstElement in this) {
         val rest = this.toMutableList()
         rest.remove(firstElement)
-        for (r in rest.permutate(minSize)) {
+        for (r in rest.compositions(minSize)) {
             val perm = mutableListOf(firstElement)
             perm.addAll(r)
             perms.add(perm)
@@ -47,10 +47,4 @@ fun Int.splitIntoCombinations(n: Int): List<List<Int>> {
         }
     }
     return collect.filter { it.size == n }
-}
-
-fun main() {
-    println(listOf(1, 2, 3, 4).permutate())
-    println(listOf(1, 2, 3, 4, 1).allIndicesOf(1))
-    println(5.splitIntoCombinations(3))
 }

@@ -1,11 +1,11 @@
 package com.baobab.y2021
 
+import com.baobab.helpers.extractInts
 import utils.AocDay
 
 class Day06 : AocDay(2021, 6, "Lanternfish") {
 
-    val data = input.split(",")
-        .map { it.toInt() }
+    val data = input.extractInts()
         .groupingBy { it }
         .eachCount()
         .entries.associate {

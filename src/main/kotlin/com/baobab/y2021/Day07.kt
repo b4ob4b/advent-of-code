@@ -1,10 +1,11 @@
 package com.baobab.y2021
 
+import com.baobab.helpers.extractInts
 import utils.AocDay
 import kotlin.math.abs
 
 class Day07 : AocDay(2021, 7, "The Treachery of Whales") {
-    private val data = input.split(",").map { it.toInt() }
+    private val data = input.extractInts()
     private val fuelcost = List(data.maxOrNull()!!) { it + 1 }.runningFold(0) { acc, i -> acc + i }
     private val possibleHorizontals = 1..data.maxOrNull()!!
 
@@ -14,10 +15,9 @@ class Day07 : AocDay(2021, 7, "The Treachery of Whales") {
         }
     }
 
-
     override fun part2(): Int {
         return possibleHorizontals.minOf { value ->
-            data.sumOf { fuelcost[abs(it - value)] }
+            data.sumOf { fuelcost[(abs(it - value))] }
         }
     }
 }
