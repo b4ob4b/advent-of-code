@@ -41,7 +41,11 @@ object IO {
             import utils.AocDay
             import utils.IO
             
-            class Day$formattedDay: AocDay($year,$day, inputType = IO.TYPE.SAMPLE) {
+            fun main() {
+                Day$formattedDay().solve()
+            }
+            
+            class Day$formattedDay: AocDay(inputType = IO.TYPE.SAMPLE) {
                 override fun part1(): Any? {
                     return "not yet implement"
                 }
@@ -49,12 +53,7 @@ object IO {
                 override fun part2(): Any? {
                     return "not yet implement"
                 }
-            }
-            
-            fun main() {
-                Day$formattedDay().solve()
-            }
-            
+            }           
         """.trimIndent()
 
         val dir = File("$sourceCodePath/y$year")
@@ -71,5 +70,5 @@ object IO {
 }
 
 fun main() {
-    createNewDay(2021, 8, true)
+    createNewDay(2021, 10, true)
 }

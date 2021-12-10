@@ -3,11 +3,14 @@ package utils
 import kotlin.system.measureNanoTime
 
 abstract class AocDay(
-    year: Int,
-    day: Int,
     name: String = "",
     inputType: IO.TYPE = IO.TYPE.INPUT
 ) {
+
+    constructor(year: Int, day: Int, name: String) : this(name)
+
+    private val year = this.javaClass.`package`.name.replace("com.baobab.y", "").toInt()
+    private val day = this.javaClass.simpleName.replace("Day", "").toInt()
 
     private val displayName = "Year $year - Day ${day.format(2, '0')}: $name"
     val input = IO.readFile(year, day, inputType)

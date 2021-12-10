@@ -1,6 +1,6 @@
 package com.baobab.y2021
 
-import com.baobab.helpers.permute
+import com.baobab.helpers.permutations
 import com.baobab.helpers.splitLines
 import utils.AocDay
 
@@ -21,7 +21,7 @@ class Day08 : AocDay(2021, 8, "Seven Segment Search") {
         "ab" to 1,
     ).mapKeys { it.key.toList().sorted() }
 
-    private val permutations: List<List<Char>> = eight.permute().toList().map { it.toList() }
+    private val permutations: List<List<Char>> = eight.permutations().toList().map { it.toList() }
 
     override fun part1(): Int {
         return lines.flatMap { line ->

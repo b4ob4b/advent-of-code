@@ -14,15 +14,18 @@ fun <T> List<T>.permuteRecursive(): List<List<T>> {
     return perms
 }
 
-fun <T> List<T>.permute(): Sequence<List<T>> =
+fun <T> List<T>.permutations(): Sequence<List<T>> =
     when (size) {
         0 -> emptySequence()
-        1 -> this@permute.asSequence().map { listOf(it) }
-        else -> sequence {
-            this@permute.forEach { toInsert ->
-                val permutations = this@permute.filter { it != toInsert }.permute()
-                permutations.forEach {
-                    yield(listOf(toInsert) + it)
+        1 -> sequenceOf(toList())
+        else -> {
+            val head = first()
+            val tail = drop(1)
+            sequence {
+                tail.permutations().forEach { perm ->
+                    for (i in 0..perm.size) {
+                        yield(perm.toMutableList().apply { add(i, head) })
+                    }
                 }
             }
         }
